@@ -32,7 +32,7 @@ jobs:
     # This is the critical line: "needs" makes this job wait for the
     # 'test' job above to finish successfully. If tests fail, this
     # job never runs at all.
-    needs: test
+    needs: Test🧪
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
