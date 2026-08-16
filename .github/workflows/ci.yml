@@ -9,7 +9,7 @@ on:
 
 jobs:
   # ---------- JOB 1: run the test suite ----------
-  test:
+  Test🧪:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -27,7 +27,7 @@ jobs:
         run: pytest -v
 
   # ---------- JOB 2: build the Docker image ----------
-  build:
+  Build🏗️:
     runs-on: ubuntu-latest
     # This is the critical line: "needs" makes this job wait for the
     # 'test' job above to finish successfully. If tests fail, this
