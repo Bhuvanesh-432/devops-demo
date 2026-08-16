@@ -1,0 +1,59 @@
+name: CI
+
+# WHEN this workflow runs:
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ---------- JOB 1: run the test suite ----------
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest -v
+
+  # ---------- JOB 2: build the Docker image ----------
+  build:
+    runs-on: ubuntu-latest
+    # This is the critical line: "needs" makes this job wait for the
+    # 'test' job above to finish successfully. If tests fail, this
+    # job never runs at all.
+    needs: test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t devops-demo:${{ github.sha }} .
+
+      # Only push on an actual push to main — never from a pull request.
+      # PRs from forks don't have access to secrets, and we don't want
+      # untrusted PR code publishing images to our registry anyway.
+      - name: Log in to Docker Hub
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Tag and push image
+        if: github.event_name == 'push'
+        run: |
+          docker tag devops-demo:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/devops-demo:latest
+          docker tag devops-demo:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/devops-demo:${{ github.sha }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/devops-demo:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/devops-demo:${{ github.sha }}

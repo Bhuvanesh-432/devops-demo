@@ -1,0 +1,20 @@
+# Git
+.git
+.gitignore
+
+# Python cache and virtual environments
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+venv/
+env/
+.venv/
+
+# Editor/OS junk
+.vscode/
+.idea/
+.DS_Store
+
+# CI config isn't needed inside the container
+.github/
