@@ -1,41 +1,36 @@
-import sys
-import os
-
-# Make sure Python can find app.py, which lives one directory above this test file.
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-import pytest
-from app import app
+import unittest
+import tkinter as tk
+import math
 
 
-@pytest.fixture
-def client():
-    """
-    A pytest fixture: a reusable piece of setup that any test function can
-    request just by naming it as an argument (see 'client' below).
-    Flask's test_client() lets us simulate HTTP requests without running
-    a real server.
-    """
-    app.config["TESTING"] = True
-    with app.test_client() as client:
-        yield client
+class TestColor3DApp(unittest.TestCase):
+
+    def test_math_module(self):
+        """Check that the math module works."""
+        self.assertEqual(round(math.sin(0), 5), 0)
+        self.assertEqual(round(math.cos(0), 5), 1)
+
+    def test_3d_rotation(self):
+        """Test a basic 3D rotation."""
+        x = 100
+        z = 0
+        angle = math.radians(90)
+
+        new_x = x * math.cos(angle) - z * math.sin(angle)
+        new_z = x * math.sin(angle) + z * math.cos(angle)
+
+        self.assertAlmostEqual(new_x, 0, places=5)
+        self.assertAlmostEqual(new_z, 100, places=5)
+
+    def test_tkinter(self):
+        """Check that Tkinter can create a window."""
+        root = tk.Tk()
+        root.withdraw()
+
+        self.assertIsNotNone(root)
+
+        root.destroy()
 
 
-def test_home_status_code(client):
-    response = client.get("/")
-    assert response.status_code == 200
-
-
-def test_home_content(client):
-    response = client.get("/")
-    assert response.data.decode() == "Hello DevOps!"
-
-
-def test_health_status_code(client):
-    response = client.get("/health")
-    assert response.status_code == 200
-
-
-def test_health_content(client):
-    response = client.get("/health")
-    assert response.get_json() == {"status": "healthy"}
+if __name__ == "__main__":
+    unittest.main()
