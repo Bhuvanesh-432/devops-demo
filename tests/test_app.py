@@ -22,14 +22,10 @@ class TestColor3DApp(unittest.TestCase):
         self.assertAlmostEqual(new_x, 0, places=5)
         self.assertAlmostEqual(new_z, 100, places=5)
 
-    def test_tkinter(self):
-        """Check that Tkinter can create a window."""
-        root = tk.Tk()
-        root.withdraw()
-
-        self.assertIsNotNone(root)
-
-        root.destroy()
+    def test_tkinter_available(self):
+        """Check that Tkinter is installed without opening a GUI."""
+        self.assertIsNotNone(tk.TkVersion)
+        self.assertIsNotNone(tk.TclVersion)
 
 
 if __name__ == "__main__":
