@@ -71,7 +71,7 @@ On every push or pull request to `main`, GitHub Actions:
 
 Pipeline status is visible under the repository's **Actions** tab.
 
-## Deploying to EC2 (optional)
+## Deploying to EC2 (optional*)
 
 The built image can be pulled and run on any Docker host, including an AWS EC2 instance:
 
