@@ -26,8 +26,10 @@ def background():
     for i in range(70):
         color = f"#{20 + i // 4:02x}{10 + i // 5:02x}{70 + i * 2:02x}"
         canvas.create_rectangle(
-            0, i * 10,
-            1100, (i + 1) * 10,
+            0,
+            i * 10,
+            1100,
+            (i + 1) * 10,
             fill=color,
             outline=""
         )
@@ -38,7 +40,8 @@ def background():
 # -----------------------------
 def navigation():
     canvas.create_text(
-        70, 55,
+        70,
+        55,
         text="◆ Color3D",
         fill="white",
         font=("Arial", 28, "bold"),
@@ -51,7 +54,8 @@ def navigation():
 
     for link in links:
         canvas.create_text(
-            x, 55,
+            x,
+            55,
             text=link,
             fill="white",
             font=("Arial", 15, "bold")
@@ -59,14 +63,17 @@ def navigation():
         x += 105
 
     canvas.create_rectangle(
-        930, 30,
-        1045, 75,
+        930,
+        30,
+        1045,
+        75,
         fill="#e843c6",
         outline=""
     )
 
     canvas.create_text(
-        987, 52,
+        987,
+        52,
         text="Get Started",
         fill="white",
         font=("Arial", 12, "bold")
@@ -78,7 +85,8 @@ def navigation():
 # -----------------------------
 def hero_text():
     canvas.create_text(
-        80, 190,
+        80,
+        190,
         text="Welcome to",
         fill="white",
         font=("Arial", 48, "bold"),
@@ -86,7 +94,8 @@ def hero_text():
     )
 
     canvas.create_text(
-        80, 250,
+        80,
+        250,
         text="Color3D",
         fill="#ff4fc3",
         font=("Arial", 62, "bold"),
@@ -94,7 +103,8 @@ def hero_text():
     )
 
     canvas.create_text(
-        80, 335,
+        80,
+        335,
         text="A colorful and interactive",
         fill="#ddddff",
         font=("Arial", 19),
@@ -102,7 +112,8 @@ def hero_text():
     )
 
     canvas.create_text(
-        80, 370,
+        80,
+        370,
         text="3D experience made with Python.",
         fill="#ddddff",
         font=("Arial", 19),
@@ -111,14 +122,17 @@ def hero_text():
 
     # Explore button
     canvas.create_rectangle(
-        80, 420,
-        230, 470,
+        80,
+        420,
+        230,
+        470,
         fill="#e83fbd",
         outline=""
     )
 
     canvas.create_text(
-        155, 445,
+        155,
+        445,
         text="Explore More",
         fill="white",
         font=("Arial", 14, "bold")
@@ -126,14 +140,17 @@ def hero_text():
 
     # Learn button
     canvas.create_rectangle(
-        250, 420,
-        370, 470,
+        250,
+        420,
+        370,
+        470,
         outline="white",
         width=2
     )
 
     canvas.create_text(
-        310, 445,
+        310,
+        445,
         text="Learn More",
         fill="white",
         font=("Arial", 14, "bold")
@@ -169,6 +186,8 @@ def project(x, y, z):
 
 
 def draw_cube():
+    global angle
+
     canvas.delete("cube")
 
     size = 130
@@ -223,15 +242,16 @@ def draw_cube():
 
     # Glow around cube
     canvas.create_oval(
-        650, 230,
-        930, 510,
+        650,
+        230,
+        930,
+        510,
         outline="#9d42ff",
         width=4,
         tags="cube"
     )
 
     # Continue animation
-    global angle
     angle += 2
 
     root.after(30, draw_cube)
@@ -252,8 +272,10 @@ def draw_objects():
 
     # Yellow ball
     canvas.create_oval(
-        930, 160 + offset,
-        990, 220 + offset,
+        930,
+        160 + offset,
+        990,
+        220 + offset,
         fill="#ffb52e",
         outline="",
         tags="objects"
@@ -261,8 +283,10 @@ def draw_objects():
 
     # Pink ball
     canvas.create_oval(
-        600, 390 - offset,
-        655, 445 - offset,
+        600,
+        390 - offset,
+        655,
+        445 - offset,
         fill="#ff36b8",
         outline="",
         tags="objects"
@@ -270,8 +294,10 @@ def draw_objects():
 
     # Blue ball
     canvas.create_oval(
-        950, 470 + offset,
-        1005, 525 + offset,
+        950,
+        470 + offset,
+        1005,
+        525 + offset,
         fill="#327dff",
         outline="",
         tags="objects"
@@ -300,22 +326,26 @@ def cards():
         x = x_positions[i]
 
         canvas.create_rectangle(
-            x, 565,
-            x + 290, 650,
+            x,
+            565,
+            x + 290,
+            650,
             fill="#261b70",
             outline="#604bca",
             width=2
         )
 
         canvas.create_text(
-            x + 35, 607,
+            x + 35,
+            607,
             text=icon,
             fill="white",
             font=("Arial", 25)
         )
 
         canvas.create_text(
-            x + 75, 590,
+            x + 75,
+            590,
             text=title,
             fill="white",
             font=("Arial", 14, "bold"),
@@ -323,7 +353,8 @@ def cards():
         )
 
         canvas.create_text(
-            x + 75, 620,
+            x + 75,
+            620,
             text=description,
             fill="#c8c8e8",
             font=("Arial", 11),
